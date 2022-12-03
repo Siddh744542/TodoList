@@ -7,11 +7,12 @@ function App() {
 
   useEffect(() => {
     axios.get("http://localhost:7000/").then((response) => {
-      response.data.map(function(value){
-        setItems(preValue=>{
-          return [...preValue,value.name];
-        })     
-      })
+      setItems(response.data);
+      // response.data.map(function(value){
+      //   setItems(preValue=>{
+      //     return [...preValue,value.name];
+      //   })     
+      // })
     })
   },[]);
   
@@ -21,24 +22,26 @@ function App() {
   }
 
   function addItem() {
-    setItems((prevItems) => {
       axios.post('http://localhost:7000/', {
         name: inputText
       })
       .then(function (response) {
+        setItems((prevItems) => {
         console.log(response);
+        return [...prevItems, {name:inputText,_id:response.data._id}];
+        });
       })
       .catch(function (error) {
         console.log(error);
       });
-      return [...prevItems, inputText];
-    });
     setInputText("");
   }
   function deleteItem(id) {
+    axios.delete('http://localhost:7000/',{data:{idd:id}})
+    .then(response => console.log(response));
     setItems((prevItems) => {
       return prevItems.filter((item, index) => {
-        return index !== id;
+        return item._id !== id;
       });
     });
   }
@@ -56,9 +59,9 @@ function App() {
       <ul>
         {items.map((todoItem, index) => (
           <TodoItem
-            key={index}
-            id={index}
-            item={todoItem}
+            key={todoItem._id}
+            id={todoItem._id}
+            item={todoItem.name}
             onChecked={deleteItem}
           />
         ))}

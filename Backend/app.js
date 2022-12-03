@@ -11,7 +11,6 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(cors()) 
 mongoose.connect("mongodb://localhost:27017/TodoListDB");
 
 const taskSchema = {
@@ -34,7 +33,8 @@ app.get("/",(req,res)=>{
 });
 
 app.delete("/",(req,res)=>{
-    Task.deleteOne({name:req.body.name},function(err){
+    console.log(req.body.idd);
+    Task.deleteOne({_id:req.body.idd},function(err){
         if(err)
            console.log(err);
         else

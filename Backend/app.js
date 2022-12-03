@@ -33,6 +33,16 @@ app.get("/",(req,res)=>{
     });
 });
 
+app.delete("/",(req,res)=>{
+    Task.deleteOne({name:req.body.name},function(err)
+    {
+        if(err)
+           console.log(err);
+        else
+           res.send("deleted successfully");
+    })
+})
+
 app.post("/",(req,res)=>{
     const newTask = new Task({
         name:req.body.name

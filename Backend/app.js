@@ -34,6 +34,7 @@ app.get("/",(req,res)=>{
 });
 
 app.delete("/",(req,res)=>{
+    console.log("Munni badnam huyi");
     Task.deleteOne({name:req.body.name},function(err)
     {
         if(err)

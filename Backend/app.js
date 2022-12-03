@@ -34,7 +34,10 @@ app.get("/",(req,res)=>{
 });
 
 app.delete("/",(req,res)=>{
-    console.log("Munni badnam huyi");
+    
+
+    console.log("Delete is called ");
+
     Task.deleteOne({name:req.body.name},function(err)
     {
         if(err)

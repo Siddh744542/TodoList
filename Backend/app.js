@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
-var cors = require('cors')
 const app = express();
 
 //cors refers to the method that allows you to make requests to the server deployed at a different domain
@@ -35,9 +34,7 @@ app.get("/",(req,res)=>{
 });
 
 app.delete("/",(req,res)=>{
-    
-    Task.deleteOne({name:req.body.name},function(err)
-    {
+    Task.deleteOne({name:req.body.name},function(err){
         if(err)
            console.log(err);
         else

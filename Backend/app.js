@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+var cors = require('cors')
 const app = express();
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
+app.use(cors()) 
 mongoose.connect("mongodb://localhost:27017/TodoListDB");
 
 const taskSchema = {

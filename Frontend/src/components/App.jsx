@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import TodoItem from "./TodoItem";
 function App() {
   const [inputText, setInputText] = useState("");
   const [items, setItems] = useState([]);
 
+  useEffect(() => {
+    axios.get("http://localhost:7000/").then((response) => {
+      response.data.map(function(value){
+        setItems(preValue=>{
+          return [...preValue,value.name];
+        })     
+      })
+    })
+  },[]);
+  
   function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
@@ -11,6 +22,15 @@ function App() {
 
   function addItem() {
     setItems((prevItems) => {
+      axios.post('http://localhost:7000/', {
+        name: inputText
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       return [...prevItems, inputText];
     });
     setInputText("");

@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 var cors = require('cors')
 const app = express();
 
+//cors refers to the method that allows you to make requests to the server deployed at a different domain
+//cross origin resourse sharing  -- CORS
+
+const cors = require('cors');
+app.use(cors());   
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -29,10 +34,22 @@ app.get("/",(req,res)=>{
     });
 });
 
+app.delete("/",(req,res)=>{
+    console.log("Munni badnam huyi");
+    Task.deleteOne({name:req.body.name},function(err)
+    {
+        if(err)
+           console.log(err);
+        else
+           res.send("deleted successfully");
+    })
+})
+
 app.post("/",(req,res)=>{
     const newTask = new Task({
         name:req.body.name
     })
+   
     newTask.save(function(err,result){
         if (err){
             console.log(err);

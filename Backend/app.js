@@ -15,8 +15,8 @@ mongoose.connect("mongodb://localhost:27017/TodoListDB");
 
 const taskSchema = {
     name : {
-     type: String,
-    required:[true,"no item specified"]
+        type: String,
+        required:[true,"no item specified"]
     }
 };
   
@@ -46,7 +46,6 @@ app.post("/",(req,res)=>{
     const newTask = new Task({
         name:req.body.name
     })
-   
     newTask.save(function(err,result){
         if (err){
             console.log(err);

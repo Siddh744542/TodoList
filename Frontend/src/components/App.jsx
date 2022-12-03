@@ -8,11 +8,6 @@ function App() {
   useEffect(() => {
     axios.get("http://localhost:7000/").then((response) => {
       setItems(response.data);
-      // response.data.map(function(value){
-      //   setItems(preValue=>{
-      //     return [...preValue,value.name];
-      //   })     
-      // })
     })
   },[]);
   
@@ -28,7 +23,7 @@ function App() {
       .then(function (response) {
         setItems((prevItems) => {
         console.log(response);
-        return [...prevItems, {name:inputText,_id:response.data._id}];
+        return [...prevItems,{name:inputText,_id:response.data._id}];
         });
       })
       .catch(function (error) {
@@ -57,14 +52,14 @@ function App() {
         </button>
       </div>
       <ul>
-        {items.map((todoItem, index) => (
+        {items.map((todoItem) => (
           <TodoItem
             key={todoItem._id}
             id={todoItem._id}
             item={todoItem.name}
             onChecked={deleteItem}
           />
-        ))}
+        )).reverse()}
       </ul>
     </div>
   );

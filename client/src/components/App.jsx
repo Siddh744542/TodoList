@@ -4,9 +4,9 @@ import TodoItem from "./TodoItem";
 function App() {
   const [inputText, setInputText] = useState("");
   const [items, setItems] = useState([]);
-
+  const Server="https://todolist-server-lv8y.onrender.com/"
   useEffect(() => {
-    axios.get("http://localhost:7000/").then((response) => {
+    axios.get(Server).then((response) => {
       setItems(response.data);
     })
   },[]);
@@ -17,7 +17,7 @@ function App() {
   }
 
   function addItem() {
-      axios.post('http://localhost:7000/', {
+      axios.post(Server, {
         name: inputText
       })
       .then(function (response) {
@@ -32,7 +32,7 @@ function App() {
     setInputText("");
   }
   function deleteItem(id) {
-    axios.delete('http://localhost:7000/',{data:{idd:id}})
+    axios.delete(Server,{data:{idd:id}})
     .then(response => console.log(response));
     setItems((prevItems) => {
       return prevItems.filter((item, index) => {
